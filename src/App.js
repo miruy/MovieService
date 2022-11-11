@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Movie from "./Movie";
 
 class App extends React.Component {
   state = {
@@ -9,7 +10,7 @@ class App extends React.Component {
 
   getMovies = async () => {
     // ↓movies : axios - API의 movies
-    const { data: { data: { movies } } } = await (axios.get("https://yts.mx/api/v2/list_movies.json"));
+    const { data: { data: { movies } } } = await (axios.get("https://yts.mx/api/v2/list_movies.json?sort_by=rating"));
 
     // ↓movies : setState()의 movies
     this.setState({ movies, loading: false });
@@ -23,9 +24,21 @@ class App extends React.Component {
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, movies } = this.state;
     return (
-      <div>{loading ? "Loading..." : "We Are Ready!"}</div>
+      <section className="container">
+        {loading ?
+          <div className="loader">
+            <span className="loader__text">Loading...</span>
+          </div>
+          :
+          <div className="movies">
+            {movies.map(movie => (
+              <Movie key={movie.id} id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} poster={movie.medium_cover_image} />
+            ))}
+          </div>
+        }
+      </section>
     );
   }
 }
