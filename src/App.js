@@ -1,24 +1,28 @@
 import React from "react";
 import {
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
+  BrowserRouter as Router,
+  Routes,
+  Route
 } from "react-router-dom";
 import About from "./routes/About";
 import Home from "./routes/Home";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route path="/about" element={<About />} />
-      <Route path="/" element={<Home />} />
-    </Route>
-  )
-);
+import Detail from "./routes/Detail";
+import Navigation from "./components/Navigation";
+import "./App.css";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div className="App">
+      <Router>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/movie/:id" element={<Detail />} />
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
 

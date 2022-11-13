@@ -10,7 +10,7 @@ class Home extends React.Component {
     }
 
     getMovies = async () => {
-        // ↓movies : axios - API의 movies
+        // ↓movies : axi os - API의 movies
         const { data: { data: { movies } } } = await (axios.get("https://yts.mx/api/v2/list_movies.json?sort_by=rating"));
         console.log(movies);
         // ↓movies : setState()의 movies
